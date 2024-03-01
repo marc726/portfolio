@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   font-family: 'Cascade Mono', monospace;
+  color: white; 
 }
 
 .App-header {
@@ -16,4 +17,7 @@
 
 .App-link {
   color: #61dafb;
+}
+body {
+  background-color: rgb(26, 26, 26);
 }
