@@ -1,6 +1,7 @@
 import './App.css';
-import ContactForm from './contactform';
 import React, { useState, useEffect, useRef } from 'react';
+import PicLinks from './PicLinks';
+import HireMeButton from './HireMeButton';
 
 // Main Page component
 const MainPage = () => {
@@ -43,102 +44,6 @@ function MyFace() {
           I am also familiar with HTML, CSS, and React. I am a quick learner and am eager to learn new technologies.</p>
       </div>
       <img src={`${process.env.PUBLIC_URL}/picofme.jpg`} alt="Description" style={{ objectFit: 'contain', maxWidth: '30%', maxHeight: '30%' }} />
-    </div>
-  );
-}
-
-
-// Links to my social media
-function PicLinks() {
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
-  });
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px', position: 'fixed', bottom: '20px', left: '0', width: '100%', overflowX: 'auto' }}>
-      <a href="https://www.linkedin.com/in/marc-rizzolo-111b4a139/" target="_blank" rel="noopener noreferrer">
-        <img src={`${process.env.PUBLIC_URL}/linkedin-app-white-icon.webp`} alt="Descriptive Text" style={{ width: '20px', height: '20px' }} />
-      </a>
-      <a href="https://github.com/marc726" target="_blank" rel="noopener noreferrer">
-        <img src={`${process.env.PUBLIC_URL}/github-icon.png`} alt="Descriptive Text" style={{ width: '20px', height: '20px' }} />
-      </a>
-    </div>
-  );
-}
-
-
-function HireMeButton() {
-  const [showMiniBox, setShowMiniBox] = useState(false);
-  const miniBoxRef = useRef(null); // Ref for the mini box
-
-  // Function to copy email to clipboard
-  const copyEmailToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText('marcrizzolo726@gmail.com');
-      alert('Email address copied to clipboard!');
-    } catch (err) {
-      console.error('Failed to copy: ', err);
-    }
-  };
-
-  // Function to handle click outside the mini box
-  const handleClickOutside = (event) => {
-    if (miniBoxRef.current && !miniBoxRef.current.contains(event.target)) {
-      setShowMiniBox(false);
-    }
-  };
-
-  // Add event listener to handle click outside
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <button onClick={(e) => {
-        e.stopPropagation(); // Prevent event from reaching the document when opening
-        setShowMiniBox(!showMiniBox);
-      }}>Hire Me</button>
-      
-      {showMiniBox && (
-        <div 
-          style={{
-            position: 'absolute', 
-            top: '50%', 
-            left: '50%', 
-            transform: 'translate(-50%, -50%)', 
-            padding: '20px', 
-            border: '1px solid #ccc', 
-            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)', 
-            backgroundColor: '#666',
-            zIndex: 1000 // Ensure it's above other content
-          }}
-          ref={miniBoxRef} // Use the ref here
-        >
-          <p>marcrizzolo726@gmail.com</p>
-          <button onClick={copyEmailToClipboard}>Click to Copy My Email Address</button>
-        </div>
-      )}
     </div>
   );
 }
@@ -201,9 +106,6 @@ function ProjectIntroduction() {
   );
 }
 
-
-
-// Add ProjectIntroduction component to App
 function App() {
   return (
     <div>

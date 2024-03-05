@@ -1,0 +1,43 @@
+.pic-links-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.icon-wrapper {
+  position: relative;
+  display: inline-block; /* Ensures the wrapper behaves as expected */
+}
+
+.icon-link {
+  display: block;
+}
+
+.icon-image {
+  width: 20px;
+  height: 20px;
+}
+
+.tooltip {
+  position: absolute;
+  top: -35px; /* Adjust this value to position the tooltip above the icon */
+  left: 50%;
+  transform: translateX(-50%);
+  visibility: hidden; /* Hide tooltip by default */
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #282c34; /* Default background color */
+  color: white; /* Default text color */
+  white-space: nowrap;
+  z-index: 1000; /* Ensure it's above other elements */
+}
+
+.icon-wrapper:hover .tooltip {
+  visibility: visible; /* Show tooltip on hover */
+}
