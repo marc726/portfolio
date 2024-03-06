@@ -1,69 +1,58 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './HireMeButton.css'; // Adjust the path based on your file structure
-
+import React, { useState } from 'react';
+import { Button, Stack, Box } from '@chakra-ui/react';
+import { MdEmail } from 'react-icons/md';
+import { IoMdDownload } from 'react-icons/io';
 
 function HireMeButton() {
-  const [showMiniBox, setShowMiniBox] = useState(false);
-  const miniBoxRef = useRef(null); // Ref for the mini box
+  const [emailCopied, setEmailCopied] = useState(false);
 
-  // Function to copy email to clipboard
-  const copyEmailToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText('marcrizzolo726@gmail.com');
-      alert('Email address copied to clipboard!');
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
+  const handleCopyEmail = () => {
+    const email = 'marcrizzolo726@gmail.com'; // Replace with your email
+    navigator.clipboard.writeText(email);
+    setEmailCopied(true);
+    setTimeout(() => {
+      setEmailCopied(false);
+    }, 2000); // Reset the copied state after 2 seconds
   };
 
-  // Function to handle click outside the mini box
-  const handleClickOutside = (event) => {
-    if (miniBoxRef.current && !miniBoxRef.current.contains(event.target)) {
-      setShowMiniBox(false);
-    }
+  const handleResumeDownload = () => {
+    const link = document.createElement('a');
+    link.href =`${process.env.PUBLIC_URL}/MarcResume.pdf`; // Replace with the actual path to your resume file
+    link.download = 'MarcRizzoloResume.pdf'; // Replace with the desired file name and extension
+    link.click();
   };
-
-  // Add event listener to handle click outside
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
-    <div style={{ textAlign: 'center' }}>
-    <button
-      className="hire-me-btn"
-      onClick={(e) => {
-        e.stopPropagation(); // Prevent event from reaching the document when opening
-        setShowMiniBox(!showMiniBox);
-      }}
+    <Box
+      position="fixed"
+      bottom="80px" // Adjust this value based on the size of the SocialIcons component and desired spacing
+      left="50%"
+      transform="translateX(-50%)"
+      zIndex="999"
+      p={4} // Add padding to the entire component
     >
-      Hire Me
-    </button>
-      
-      {showMiniBox && (
-        <div 
-          style={{
-            position: 'absolute', 
-            top: '50%', 
-            left: '50%', 
-            transform: 'translate(-50%, -50%)', 
-            padding: '50px', 
-            border: '1px solid #ccc', 
-            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)', 
-            backgroundColor: '#666',
-            zIndex: 1000 // Ensure it's above other content
-          }}
-          ref={miniBoxRef} // Use the ref here
-        >
-          <p>marcrizzolo726@gmail.com</p>
-          <button onClick={copyEmailToClipboard}>Click to Copy My Email Address</button>
-        </div>
-      )}
-    </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        {emailCopied && <span style={{ color: 'green', marginBottom: '10px' }}>Email copied!</span>}
+        <Stack direction='row' spacing={4}>
+          <Button
+            leftIcon={<MdEmail />}
+            colorScheme='teal'
+            variant='solid'
+            onClick={handleCopyEmail}
+          >
+            Email
+          </Button>
+          <Button
+            rightIcon={<IoMdDownload />}
+            colorScheme='teal'
+            variant='outline'
+            onClick={handleResumeDownload}
+          >
+            Resume
+          </Button>
+        </Stack>
+      </div>
+    </Box>
   );
 }
 

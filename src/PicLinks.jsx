@@ -1,39 +1,32 @@
-import React, { useState } from 'react';
-import './PicLinks.css';
+import React from 'react';
+import { Box, Tooltip, Link } from '@chakra-ui/react';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
-const iconDetails = [
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/marc-rizzolo-111b4a139/',
-    src: `${process.env.PUBLIC_URL}/linkedin-app-white-icon.webp`,
-    alt: 'LinkedIn Icon',
-  },
-  {
-    name: 'GitHub',
-    href: 'https://github.com/marc726',
-    src: `${process.env.PUBLIC_URL}/github-icon.png`,
-    alt: 'GitHub Icon',
-  }
-];
-
-const PicLinks = () => {
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipText, setTooltipText] = useState('');
-
+function SocialIcons() {
   return (
-    <div className="pic-links-container">
-      {iconDetails.map((icon, index) => (
-        <div key={index} className="icon-wrapper"
-             onMouseEnter={() => { setTooltipVisible(true); setTooltipText(icon.name); }}
-             onMouseLeave={() => setTooltipVisible(false)}>
-          <a href={icon.href} target="_blank" rel="noopener noreferrer" className="icon-link">
-            <img src={icon.src} alt={icon.alt} className="icon-image" />
-          </a>
-          {tooltipVisible && <div className="tooltip">{tooltipText}</div>}
-        </div>
-      ))}
-    </div>
+    <Box
+      position="fixed"
+      bottom="20px"
+      left="50%"
+      transform="translateX(-50%)"
+      zIndex="999"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      padding="0 10px"
+    >
+      <Tooltip label="LinkedIn">
+        <Link href="https://www.linkedin.com/in/marc-rizzolo-111b4a139/" isExternal>
+          <FaLinkedin style={{ marginRight: '20px', fontSize: '24px', color: '#0077B5' }} />
+        </Link>
+      </Tooltip>
+      <Tooltip label="GitHub">
+        <Link href="https://github.com/marc726" isExternal>
+          <FaGithub style={{ fontSize: '24px', color: '#000000' }} />
+        </Link>
+      </Tooltip>
+    </Box>
   );
-};
+}
 
-export default PicLinks;
+export default SocialIcons;
