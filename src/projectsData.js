@@ -20,8 +20,8 @@ const projectsData = [
     {
       name: "Personal Website",
       description: "This website! Built using React and deployed to my own home server.",
-      languages: ["React", "HTML", "CSS"],
-      icons: ["react.png", "codehtmlicon.png", "cssicon.png"]
+      languages: ["React", "Node.js", "HTML", "CSS"],
+      icons: ["react.png", "nodejs.png", "codehtmlicon.png", "cssicon.png"]
     }
   ];
   
