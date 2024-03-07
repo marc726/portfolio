@@ -1,5 +1,6 @@
 import React from 'react';
 import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIcon, Box, Heading, Text, Image, HStack } from '@chakra-ui/react';
+import PicLinks from './PicLinks';
 
 function ProjectLayout({ projects }) {
   return (
@@ -31,7 +32,9 @@ function ProjectLayout({ projects }) {
           </AccordionPanel>
         </AccordionItem>
       ))}
+    <PicLinks />
     </Accordion>
+    
   );
 }
 

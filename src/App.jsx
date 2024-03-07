@@ -1,13 +1,11 @@
-import React from 'react';
-import { ChakraProvider, Box, Divider, extendTheme } from '@chakra-ui/react';
-import HireMeButton from './HireMeButton';
-import ProjectLayout from './ProjectLayout';
-import PicLinks from './PicLinks';
+import React, { useState } from 'react';
+import { ChakraProvider, Tabs, TabList, Tab, TabPanels, TabPanel, extendTheme } from '@chakra-ui/react';
 import MainPage from './MainPage';
-import MyFace from './MyFace';
-import projectsData from './projectsData'; // Assuming you have a file containing project data
+import AboutMePage from './AboutMePage';
+import ProjectLayout from './ProjectLayout';
+import projectsData from './projectsData'; // Assuming this is your projects data
 
-// Define custom theme
+// Define custom theme (if not already defined globally)
 const theme = extendTheme({
   styles: {
     global: {
@@ -20,17 +18,38 @@ const theme = extendTheme({
 });
 
 function App() {
+  const [tabIndex, setTabIndex] = useState(0);
+  // A state to force re-rendering of the AboutMePage component
+  const [aboutMeKey, setAboutMeKey] = useState(0);
+
+  const handleTabsChange = (index) => {
+    setTabIndex(index);
+    // If the About Me tab is selected, update its key to force re-render
+    if (index === 1) {
+      setAboutMeKey(prevKey => prevKey + 1);
+    }
+  };
+
   return (
     <ChakraProvider theme={theme}>
-      <Box p={4}> {/* Add padding to the entire page */}
-        <MainPage />
-        <Divider />
-        <MyFace />
-        <Divider />
-        <ProjectLayout projects={projectsData} />
-        <HireMeButton />
-        <PicLinks />
-      </Box>
+      <Tabs isFitted variant="enclosed" defaultIndex={0} onChange={handleTabsChange}>
+        <TabList mb="1em">
+          <Tab>Home</Tab>
+          <Tab>About Me</Tab>
+          <Tab>Projects</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <MainPage />
+          </TabPanel>
+          <TabPanel key={aboutMeKey}>
+            <AboutMePage />
+          </TabPanel>
+          <TabPanel>
+            <ProjectLayout projects={projectsData} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </ChakraProvider>
   );
 }

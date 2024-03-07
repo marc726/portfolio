@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Tooltip, Link } from '@chakra-ui/react';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
+
 function SocialIcons() {
   return (
     <Box
@@ -17,12 +18,12 @@ function SocialIcons() {
     >
       <Tooltip label="LinkedIn">
         <Link href="https://www.linkedin.com/in/marc-rizzolo-111b4a139/" isExternal>
-          <FaLinkedin style={{ marginRight: '20px', fontSize: '24px', color: '#0077B5' }} />
+          <FaLinkedin style={{ marginRight: '20px', fontSize: '24px', color: 'white' }} />
         </Link>
       </Tooltip>
       <Tooltip label="GitHub">
         <Link href="https://github.com/marc726" isExternal>
-          <FaGithub style={{ fontSize: '24px', color: '#000000' }} />
+          <FaGithub style={{ fontSize: '24px', color: 'white' }} />
         </Link>
       </Tooltip>
     </Box>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const CommandPrompt = () => {
   const [command, setCommand] = useState('');
-  const [responses, setResponses] = useState(['Welcome to the command prompt! Type "help" for a list of available commands.']);
+  const [responses, setResponses] = useState(['Welcome to my website! Type "help" for a list of available commands.\nLinks are clickable below as well!']);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef(null);
@@ -30,10 +30,11 @@ const CommandPrompt = () => {
     let newResponse = '';
 
     switch (trimmedCommand.toLowerCase()) {
-      case 'give email':
-        newResponse = 'Your email is: user@example.com';
+      case 'email':
+        newResponse = 'marcrizzolo726@gmail.com: copied to clipboard!';
+        navigator.clipboard.writeText('marcrizzolo726@gmail.com');
         break;
-      case 'download resume':
+      case 'resume':
         newResponse = 'Downloading resume...';
         // link public folder to the resume file
         const link = document.createElement('a');
@@ -41,8 +42,16 @@ const CommandPrompt = () => {
         link.download = 'resume.pdf';
         link.click();
         break;
+      case 'linkedin':
+        newResponse = 'Opening LinkedIn...';
+        window.open('https://www.linkedin.com/in/marc-rizzolo-111b4a139/', '_blank');
+        break;
+      case 'github':
+        newResponse = 'Opening GitHub...';
+        window.open('https://www.github.com/marc726', '_blank');
+        break;
       case 'help':
-        newResponse = 'Available commands:\n- give email\n- download resume\n- help\n- clear';
+        newResponse = 'Available commands:\n- email\n- resume\n- linkedin\n- github\n- help\n- clear';
         break;
       case 'clear':
         // Clear the screen, but keep the welcome message
@@ -98,7 +107,7 @@ const CommandPrompt = () => {
       maxHeight: '300px',
       maxWidth: '600px',
       overflow: 'hidden',
-      //borderTop: '12px solid #bbb',
+      //borderTop: '12px solid #bbb', was cutting off the top of the terminal probably wont need this
       display: 'flex',
       flexDirection: 'column',
       fontSize: '11px'
@@ -121,8 +130,8 @@ const CommandPrompt = () => {
           lineHeight: '20px', // Adjust lineHeight if necessary
           color: '#121212', // Extremely dark gray color for the "Command Prompt" text
           // Use transform for vertical alignment adjustment instead of padding
-          transform: 'translateY(-10%)', // Adjust this value as needed
-        }}>marc - zsh - 600x300</div>
+          transform: 'translateY(-10%)',
+        }}>marc - CLI - 600x300</div>
         <div style={{
           width: '33%',
           display: 'flex',
