@@ -121,7 +121,7 @@ const CommandPrompt = () => {
       width: cliSize.width, // Set width dynamically
       height: cliSize.height, // Set height dynamically
       maxHeight: '400px', // Set max height if needed
-      maxWidth: '600px', // Set max width if needed
+      maxWidth: '800px', // Set max width if needed
       overflow: 'auto',
       display: 'flex',
       flexDirection: 'column',

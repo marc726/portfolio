@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChakraProvider, Box, Flex, extendTheme, Center } from '@chakra-ui/react';
+import { ChakraProvider, Box, Flex, extendTheme, Text  } from '@chakra-ui/react';
 import HireMeButton from './HireMeButton';
 import PicLinks from './PicLinks';
 import CommandPrompt from './Terminal'; // Assuming the component's name is CommandPrompt
@@ -35,6 +35,10 @@ function MainPage() {
         </Box>
         <Box>
           <HireMeButton />
+        </Box>
+        <Box textAlign="center" fontSize="sm" fontFamily="'Monaco', monospace" color="gray.500">
+          <Text mb={1}>everything you see was made from scratch and with love.</Text>
+          <Text>© Marc Rizzolo 2024</Text>
         </Box>
         <Box>
           <PicLinks />
