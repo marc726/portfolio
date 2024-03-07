@@ -19,7 +19,7 @@ const theme = extendTheme({
 
 function App() {
   const [tabIndex, setTabIndex] = useState(0);
-  // A state to force re-rendering of the AboutMePage component
+  // A state to force re-rendering of the AboutMePage component 
   const [aboutMeKey, setAboutMeKey] = useState(0);
 
   const handleTabsChange = (index) => {
