@@ -5,25 +5,39 @@ const CommandPrompt = () => {
   const [responses, setResponses] = useState(['Welcome to my website! Type "help" for a list of available commands.\nLinks are clickable below as well!']);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [cliSize, setCliSize] = useState({ width: '60vw', height: '50vh' }); // Initial CLI size based on viewport
   const inputRef = useRef(null);
-  const cliContainerRef = useRef(null); // Reference for the entire CLI container
+  const cliContainerRef = useRef(null);
 
   useEffect(() => {
-    // Automatically scroll to show the input field
     inputRef.current.scrollIntoView({ behavior: "smooth" });
   }, [responses]);
 
   useEffect(() => {
-    // Focus input when clicking within the CLI container
     const handleClick = () => inputRef.current.focus();
-
-    // Adding event listener
     const cliContainerElement = cliContainerRef.current;
     cliContainerElement.addEventListener('click', handleClick);
 
-    // Cleanup event listener on component unmount
     return () => cliContainerElement.removeEventListener('click', handleClick);
   }, []);
+
+  // Adjust CLI size based on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setCliSize({ width: '60vw', height: '50vh' }); // Adjust these values as needed
+    };
+
+    // Add resize event listener
+    window.addEventListener('resize', handleResize);
+
+    // Call once to set initial size
+    handleResize();
+
+    // Cleanup event listener on component unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  
 
   const handleCommand = (inputCommand) => {
     const trimmedCommand = inputCommand.trim();
@@ -103,16 +117,18 @@ const CommandPrompt = () => {
       fontFamily: 'Monaco, monospace',
       borderRadius: '5px',
       minHeight: '300px',
-      minWidth: '600px',
-      maxHeight: '300px',
-      maxWidth: '600px',
-      overflow: 'hidden',
-      //borderTop: '12px solid #bbb', was cutting off the top of the terminal probably wont need this
+      minWidth: '400px',
+      width: cliSize.width, // Set width dynamically
+      height: cliSize.height, // Set height dynamically
+      maxHeight: '400px', // Set max height if needed
+      maxWidth: '600px', // Set max width if needed
+      overflow: 'auto',
       display: 'flex',
       flexDirection: 'column',
-      fontSize: '11px'
+      fontSize: '11px',
+
     }}>
-      <div style={{
+      <div style={{ // Top bar
         height: '20px', // Keep the original fixed height
         backgroundColor: '#bbb',
         display: 'flex',
@@ -131,7 +147,7 @@ const CommandPrompt = () => {
           color: '#121212', // Extremely dark gray color for the "Command Prompt" text
           // Use transform for vertical alignment adjustment instead of padding
           transform: 'translateY(-10%)',
-        }}>marc - CLI - 600x300</div>
+        }}>marc - CLI</div>
         <div style={{
           width: '33%',
           display: 'flex',
@@ -146,13 +162,14 @@ const CommandPrompt = () => {
       </div>
 
       <div style={{
-        overflowY: 'auto', 
-        overflowX: 'hidden', 
+        overflowY: 'auto',
+        overflowX: 'hidden',
         whiteSpace: 'pre-wrap',
+        wordBreak: 'break-word', // Ensure long words don't cause horizontal scrolling
         flexGrow: 1
       }}>
         {responses.map((response, index) => (
-          <pre key={index} style={{ whiteSpace: 'pre-wrap' }}>{response}</pre>
+          <pre key={index} style={{ whiteSpace: 'pre-wrap', margin: 0 }}>{response}</pre>
         ))}
         <form onSubmit={handleSubmit}>
           {'~$ '}
