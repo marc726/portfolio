@@ -32,7 +32,7 @@ const AboutMePage = () => {
         <Box as={motion.div} variants={itemVariants}>
           <Heading as="h2" size="lg">About Me</Heading>
           <Text mt={2}>I'm currently pursuing my second degree in Computer Science. During my time at PBF Energy, I had the honor of being put on a team with fantastic individuals from DevOps where
-          we created and pushed automation scripts into production for my team. They are the reason I finally found my passion and what I want make a carrier out of. </Text>
+          we created and pushed automation scripts into production for my team. They are the reason I finally found my passion and what I want make a career out of. </Text>
           <Text mt={50}>I'm also a huge fan of various video games and am currently in the process of writing my own book!</Text>
         </Box>
 
